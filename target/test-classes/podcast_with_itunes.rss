@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:itunes="http://www.itunes.com/DTDs/Podcast-1.0.dtd" version="2.0">
+    <channel>
+        <title>RSS Feed Podcast</title>
+        <description>Podcast explaining the ins and outs of RSS, RSS feeds, feed creation, optimization and use as a marketing technology. The channel is prepared using voice synthesis, reading articles related to RSS.</description>
+        <link>http://www.rss-specifications.com/rss-articles.htm</link>
+        <lastBuildDate>Mon, 25 Jul 2005 16:37:32 -0400</lastBuildDate>
+        <pubDate>Mon, 25 Jul 2005 09:00:00 -0400</pubDate>
+        <generator>FeedForAll Mac v1.0 (1.0.1.0) unlicensed version</generator>
+        <itunes:category text="Technology">
+            <itunes:category text="Information Technology"/>
+        </itunes:category>
+        <itunes:title>RSS Feed Podcast</itunes:title>
+        <itunes:author>FeedForAll Mac OS Team</itunes:author>
+        <itunes:owner>
+            <itunes:name>FeedForAll Mac OS Team</itunes:name>
+            <itunes:email>macsupport@feedforall.com</itunes:email>
+        </itunes:owner>
+        <itunes:type>serial</itunes:type>
+        <itunes:block>No</itunes:block>
+        <itunes:complete>No</itunes:complete>
+        <itunes:explicit>False</itunes:explicit>
+        <itunes:image href="https://applehosted.podcasts.apple.com/hiking_treks/artwork.png"/>
+        <itunes:new-feed-url>https://newlocation.com/example.rss</itunes:new-feed-url>
+        <item>
+          <itunes:episode>4</itunes:episode>
+          <itunes:season>1</itunes:season>
+          <itunes:episodeType>trailer</itunes:episodeType>
+          <itunes:title>Hiking Treks Trailer</itunes:title>
+          <description>
+              <![CDATA[The Sunset Explorers share tips, techniques and recommendations for
+              great hikes and adventures around the United States. Listen on
+              <a href="https://www.apple.com/itunes/podcasts/">Apple Podcasts</a>.]]>
+          </description>
+          <enclosure
+            length="498537"
+            type="audio/mpeg"
+            url="http://example.com/podcasts/everything/AllAboutEverythingEpisode4.mp3"
+          />
+          <guid>aae20190418</guid>
+          <pubDate>Tue, 8 Jan 2019 01:15:00 GMT</pubDate>
+          <itunes:duration>1079</itunes:duration>
+          <itunes:explicit>false</itunes:explicit>
+          <itunes:image href="https://applehosted.podcasts.apple.com/hiking_treks/artwork2.png"/>
+          <itunes:block>No</itunes:block>
+        </item>
+    </channel>
+</rss>

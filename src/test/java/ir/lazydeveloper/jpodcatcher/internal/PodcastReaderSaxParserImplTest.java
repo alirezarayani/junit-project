@@ -3,16 +3,20 @@ package ir.lazydeveloper.jpodcatcher.internal;
 import ir.lazydeveloper.jpodcatcher.PodcastReaderException;
 import ir.lazydeveloper.jpodcatcher.model.Channel;
 import ir.lazydeveloper.jpodcatcher.model.Item;
+import ir.lazydeveloper.jpodcatcher.model.itunes.ItunesChannelData;
+import ir.lazydeveloper.jpodcatcher.model.itunes.ItunesItemData;
 import org.junit.jupiter.api.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PodcastReaderSaxParserImplTest {
 
     static PodcastReaderSaxParserImpl podcastReaderSaxParser;
-    static String samplePodcastURI = PodcastReaderSaxParserImplTest.class.getClassLoader().getResource("simple_podcast.xml").toString();
+    static String samplePodcastURI;
+    static String podcastWithItunesURI;
 
     /**
      * This method must be static
@@ -20,14 +24,16 @@ class PodcastReaderSaxParserImplTest {
      */
     @BeforeAll
     static void beforeAll() {
-        podcastReaderSaxParser = new PodcastReaderSaxParserImpl();
+        samplePodcastURI = PodcastReaderSaxParserImplTest.class.getClassLoader().getResource("simple_podcast.xml").toString();
+        podcastWithItunesURI = PodcastReaderSaxParserImplTest.class.getClassLoader().getResource("podcast_with_itunes.rss").toString();
     }
 
     /**
      * This method runs before each testcase
      */
     @BeforeEach
-    void setUp() {
+    void beforeEach() {
+        podcastReaderSaxParser = new PodcastReaderSaxParserImpl();
     }
 
     /**
@@ -84,4 +90,43 @@ class PodcastReaderSaxParserImplTest {
         );
     }
 
+    /**
+     * @Nested tests give the test writer more capabilities to express the relationship among several groups of tests.
+     */
+    @Nested
+    class ItunesPodcastElementTest {
+        @Test
+        void loadRSSShouldContainItunesData() throws PodcastReaderException {
+            Channel channel = podcastReaderSaxParser.loadRSS(podcastWithItunesURI);
+            ItunesChannelData itunes = channel.itunesChannelData();
+            assertAll(
+                    () -> assertEquals("FeedForAll Mac OS Team", itunes.author())
+                    , () -> assertEquals("RSS Feed Podcast", itunes.title())
+                    , () -> assertEquals("serial", itunes.type())
+                    , () -> assertEquals("No", itunes.block())
+                    , () -> assertEquals("No", itunes.complete())
+                    , () -> assertEquals("False", itunes.explicit())
+                    , () -> assertEquals("https://applehosted.podcasts.apple.com/hiking_treks/artwork.png", itunes.image())
+                    , () -> assertEquals("https://newlocation.com/example.rss", itunes.newFeedUrl())
+                    , () -> assertEquals("Technology", itunes.category().category())
+                    , () -> assertEquals(Collections.singletonList("Information Technology"), itunes.category().subCategories())
+                    , () -> assertEquals("FeedForAll Mac OS Team", itunes.owner().name())
+                    , () -> assertEquals("macsupport@feedforall.com", itunes.owner().email())
+            );
+        }
+        @Test
+        void loadRSSShouldContainItunesEpisodesData() throws PodcastReaderException {
+            Channel channel = podcastReaderSaxParser.loadRSS(podcastWithItunesURI);
+            ItunesItemData itunes = channel.items().get(0).itunesItemData();
+            assertAll(
+                    () -> assertEquals("4", itunes.episode())
+                    , () -> assertEquals("1", itunes.season())
+                    , () -> assertEquals("trailer", itunes.episodeType())
+                    , () -> assertEquals("Hiking Treks Trailer", itunes.title())
+                    , () -> assertEquals("1079", itunes.duration())
+                    , () -> assertEquals("https://applehosted.podcasts.apple.com/hiking_treks/artwork2.png", itunes.image())
+                    , () -> assertEquals("No", itunes.block())
+            );
+        }
+    }
 }
