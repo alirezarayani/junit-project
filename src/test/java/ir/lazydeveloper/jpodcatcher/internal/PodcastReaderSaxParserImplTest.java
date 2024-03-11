@@ -12,6 +12,8 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Podcast reader test using SAX parser")
+@DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PodcastReaderSaxParserImplTest {
 
@@ -19,7 +21,7 @@ class PodcastReaderSaxParserImplTest {
     static String samplePodcastURI;
     static String podcastWithItunesURI;
 
-    public PodcastReaderSaxParserImplTest() {
+    PodcastReaderSaxParserImplTest() {
         System.out.println("Outer class created");
     }
 
@@ -55,6 +57,7 @@ class PodcastReaderSaxParserImplTest {
      * cannot be abstract
      */
     @Test
+    @DisplayName("Loading a wrong RSS should throw exception \uD83D\uDE01")
     void loadWrongRSSURIShouldThrowException() {
         assertThrows(PodcastReaderException.class, () -> podcastReaderSaxParser.loadRSS("WRONG_URI"));
     }
@@ -101,9 +104,10 @@ class PodcastReaderSaxParserImplTest {
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class ItunesPodcastElementTest {
-        public ItunesPodcastElementTest() {
+         ItunesPodcastElementTest() {
             System.out.println("Inner class created...");
         }
+
         @Test
         void loadRSSShouldContainItunesData() throws PodcastReaderException {
             Channel channel = podcastReaderSaxParser.loadRSS(podcastWithItunesURI);
@@ -123,6 +127,7 @@ class PodcastReaderSaxParserImplTest {
                     , () -> assertEquals("macsupport@feedforall.com", itunes.owner().email())
             );
         }
+
         @Test
         void loadRSSShouldContainItunesEpisodesData() throws PodcastReaderException {
             Channel channel = podcastReaderSaxParser.loadRSS(podcastWithItunesURI);
