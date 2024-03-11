@@ -12,11 +12,16 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PodcastReaderSaxParserImplTest {
 
     static PodcastReaderSaxParserImpl podcastReaderSaxParser;
     static String samplePodcastURI;
     static String podcastWithItunesURI;
+
+    public PodcastReaderSaxParserImplTest() {
+        System.out.println("Outer class created");
+    }
 
     /**
      * This method must be static
@@ -94,7 +99,11 @@ class PodcastReaderSaxParserImplTest {
      * @Nested tests give the test writer more capabilities to express the relationship among several groups of tests.
      */
     @Nested
+    @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     class ItunesPodcastElementTest {
+        public ItunesPodcastElementTest() {
+            System.out.println("Inner class created...");
+        }
         @Test
         void loadRSSShouldContainItunesData() throws PodcastReaderException {
             Channel channel = podcastReaderSaxParser.loadRSS(podcastWithItunesURI);
